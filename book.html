@@ -1,23 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Book</title>
 
-    <!-- zimjs.com - JavaScript Canvas Framework -->
-    <script type="module">
-      import zim from "https://zimjs.org/cdn/017/zim";
+<head>
+  <meta charset="utf-8" />
+  <title>Book</title>
 
-      // See Docs under Frame for FIT, FILL, FULL, and TAG
-      new Frame(FIT, 1024, 768, light, dark, ready);
-      function ready() {
-        // given F (Frame), S (Stage), W (width), H (height)
-        // put code here
+  <!-- zimjs.com - JavaScript Canvas Framework -->
+  <script type="module">
+    import zim from "https://zimjs.org/cdn/017/zim";
+    const path = "covers/";
+    const assets = ["face1.jpg", "face2.jpg", "face3.jpg", "face4.jpg",
+      "face5.jpg", "face6.jpg"];
 
-        new Circle(100, purple).center().drag();
-      } // end ready
-    </script>
-    <meta name="viewport" content="width=device-width, user-scalable=no" />
-  </head>
-  <body></body>
+    new Frame(FIT, 1024, 768, light, dark, ready, assets, path);
+    function ready() {
+      // const pic = asset("face1.jpg");
+      // new Book(pic.width, pic.height, assets).center();
+
+      STYLE = { width: W / 2, color: series(blue, pink, yellow, green) };
+      // add anything you want to each of these Pages
+      const page1 = new Page();
+      const page2 = new Page();
+      const page3 = new Page();
+      const page4 = new Page();
+      const pages = [page1, page2, page3, page4];
+      // 0 (default) will show only page 0 at right - like a cover
+      // 1 will show page 0 and page 1 to start - like an open book
+      new Book(W, H, pages, 0).addTo();
+      S.update();
+
+
+    } // end ready
+  </script>
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
+</head>
+
+<body></body>
+
 </html>
