@@ -9,27 +9,59 @@
   <script type="module">
     import zim from "https://zimjs.org/cdn/017/zim";
     const path = "covers/";
-    const assets = ["face1.jpg", "face2.jpg", "face3.jpg", "face4.jpg",
-      "face5.jpg", "face6.jpg"];
+    const assets = ["almos/almos.jpg","joseph/joseph.jpg", "micheal/micheal.jpg", "mohammad/mohammad.jpg", "prince/prince.jpg", "rene/rene.jpg", "paper.jpg"];
 
     new Frame(FIT, 1024, 768, light, dark, ready, assets, path);
     function ready() {
       // const pic = asset("face1.jpg");
       // new Book(pic.width, pic.height, assets).center();
+      const bg = new Rectangle(W,H,clear).addTo();
+      const paper = new Pic("paper.jpg").addTo(bg);
+      paper.scaleTo(bg, 100, 100,FILL).mov(0,0);
 
-      STYLE = { width: W / 2, color: series(blue, pink, yellow, green) };
+      STYLE = { width: W / 2};
       // add anything you want to each of these Pages
       const page1 = new Page();
+      let pic1 = new Pic("almos/almos.jpg").addTo(page1);
+      pic1.scaleTo(page1, 90, 90).mov(30, 30);
+
       const page2 = new Page();
+      let pic2 = new Pic("joseph/joseph.jpg").addTo(page2);
+      pic2.scaleTo(page2, 90, 90).mov(30, 30);
+
       const page3 = new Page();
+      let pic3 = new Pic("micheal/micheal.jpg").addTo(page3);
+      pic3.scaleTo(page3, 90, 90).mov(30, 30);
+    
       const page4 = new Page();
-      const pages = [page1, page2, page3, page4];
+      let pic4 = new Pic("mohammad/mohammad.jpg").addTo(page4);
+      pic4.scaleTo(page4, 90, 90).mov(30, 30);
+
+      const page5 = new Page();
+      let pic5 = new Pic("prince/prince.jpg").addTo(page5);
+      pic5.scaleTo(page5, 90, 90).mov(30, 30);
+
+      const page6 = new Page();
+      let pic6 = new Pic("rene/rene.jpg").addTo(page6);
+      pic6.scaleTo(page6, 90, 90).mov(30, 30);
+
+      const pages = [page1, page2, page3, page4, page5, page6];
       // 0 (default) will show only page 0 at right - like a cover
       // 1 will show page 0 and page 1 to start - like an open book
-      new Book(W, H, pages, 0).addTo();
-      S.update();
-
-
+      const holder = new Container(W,H).addTo();
+      const mask = new Rectangle(W,H,clear).addTo(holder);
+      const book = new Book(W+2, H+2, pages, 0,).center(holder).setMask(mask);
+      // S.update();
+      timeout(3,()=>{
+        holder.animate({
+          props:{
+            x:-W + 100
+          },
+          time:2,
+          rewind:true
+        })
+      })
+      
     } // end ready
   </script>
   <meta name="viewport" content="width=device-width, user-scalable=no" />
