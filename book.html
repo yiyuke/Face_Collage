@@ -9,22 +9,68 @@
   <script type="module">
     import zim from "https://zimjs.org/cdn/017/zim";
     const path = "covers/";
-    const assets = ["almos/almos.jpg","joseph/joseph.jpg", "micheal/micheal.jpg", "mohammad/mohammad.jpg", "prince/prince.jpg", "rene/rene.jpg", "paper.jpg"];
+    const face1 = ["almos/almos.jpg", "almos/almos-left.png", "almos/almos-right.png","almos/almos-mouth.png", "almos/almos-nose.png"];
+    const face2 = ["joseph/joseph.jpg", "joseph/joseph-left.png", "joseph/joseph-right.png","joseph/joseph-mouth.png", "joseph/joseph-nose.png"];
+    const face3 = ["micheal/micheal.jpg", "micheal/micheal-left.png", "micheal/micheal-right.png","micheal/micheal-mouth.png", "micheal/micheal-nose.png"];
+    const face4 = ["mohammad/mohammad.jpg", "mohammad/mohammad-left.png", "mohammad/mohammad-right.png","mohammad/mohammad-mouth.png", "mohammad/mohammad-nose.png"];
+    const face5 = ["prince/prince.jpg", "prince/prince-left.png", "prince/prince-right.png","prince/prince-mouth.png", "prince/prince-nose.png"];
+    const face6 = ["rene/rene.jpg", "rene/rene-left.png", "rene/rene-right.png","rene/rene-mouth.png", "rene/rene-nose.png"];
+    const assets = [...face1, ...face2, ...face3, ...face4, ...face5, ...face6, "paper.jpg", "leftCover.png", "rightCover.png"];
 
     new Frame(FIT, 1024, 768, light, dark, ready, assets, path);
     function ready() {
-      // const pic = asset("face1.jpg");
-      // new Book(pic.width, pic.height, assets).center();
+
+      //make the background
       const bg = new Rectangle(W,H,clear).addTo();
       const paper = new Pic("paper.jpg").addTo(bg);
       paper.scaleTo(bg, 100, 100,FILL).mov(0,0);
 
-      STYLE = { width: W / 2};
+      //make the container for the features
+      const featuresContainer = new Container(W,H).addTo().ord(1);
+
+      //make the book
+      STYLE = { width: W / 2, color:series(blue, pink, yellow, green)};
       // add anything you want to each of these Pages
+      const cover0 = new Page();
+      let leftCover = new Pic("leftCover.png").addTo(cover0);
+      leftCover.scaleTo(cover0, 100, 100, FULL).mov(30,30);
+
+      const cover1 = new Page();
+      let rightCover = new Pic("rightCover.png").addTo(cover1);
+      rightCover.scaleTo(cover1, 100, 100, FULL).mov(30,30);
+
+      //make the first face
       const page1 = new Page();
       let pic1 = new Pic("almos/almos.jpg").addTo(page1);
       pic1.scaleTo(page1, 90, 90).mov(30, 30);
+      
+      const features = [];
+      let leftEyePic1 = new Pic("almos/almos-left.png").addTo(page1);
+      leftEyePic1.scaleTo(page1, 100, 100).mov(100, 100);
+      features.push(leftEyePic1);
+      
+      let rightEyePic1 = new Pic("almos/almos-right.png").addTo(page1);
+      rightEyePic1.scaleTo(page1, 100, 100).mov(100, 100);
+      features.push(rightEyePic1);
+      
+      let mouthPic1 = new Pic("almos/almos-mouth.png").addTo(page1);
+      mouthPic1.scaleTo(page1, 100, 100).mov(100, 100);
+      features.push(mouthPic1);
+      
+      let nosePic1 = new Pic("almos/almos-nose.png").addTo(page1);
+      nosePic1.scaleTo(page1, 100, 100).mov(100, 100);
+      features.push(nosePic1);
 
+      features.forEach(feature => {
+          feature.on("click", () => {
+              new Pic(feature.file).addTo(featuresContainer).center();
+          });
+      });
+
+      
+
+
+      //make the second page
       const page2 = new Page();
       let pic2 = new Pic("joseph/joseph.jpg").addTo(page2);
       pic2.scaleTo(page2, 90, 90).mov(30, 30);
@@ -35,7 +81,7 @@
     
       const page4 = new Page();
       let pic4 = new Pic("mohammad/mohammad.jpg").addTo(page4);
-      pic4.scaleTo(page4, 90, 90).mov(30, 30);
+      pic4.scaleTo(page4, 90, 120).mov(30, 30);
 
       const page5 = new Page();
       let pic5 = new Pic("prince/prince.jpg").addTo(page5);
@@ -45,20 +91,58 @@
       let pic6 = new Pic("rene/rene.jpg").addTo(page6);
       pic6.scaleTo(page6, 90, 90).mov(30, 30);
 
-      const pages = [page1, page2, page3, page4, page5, page6];
+      const pages = [cover0, cover1, page1, page2, page3, page4, page5, page6];
       // 0 (default) will show only page 0 at right - like a cover
       // 1 will show page 0 and page 1 to start - like an open book
       const holder = new Container(W,H).addTo();
       const mask = new Rectangle(W,H,clear).addTo(holder);
-      const book = new Book(W+2, H+2, pages, 0,).center(holder).setMask(mask);
+      const book = new Book(W+2, H+2, pages, 1,).center(holder).setMask(mask);
       // S.update();
-      timeout(3,()=>{
+     
+      //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      //make the buttons to open and close the book
+      const bookOpen = new Button({
+        width: 200,
+        height: 50,
+        label: "Open Book",
+        color: white
+      }).pos(0,30,CENTER,TOP).addTo().vis(false);
+      const bookClose = new Button({
+        width: 200,
+        height: 50,
+        label: "Close Book",
+        color: white
+      }).pos(0,30,CENTER,TOP).addTo();
+      
+      bookClose.on("click",()=>{
+        timeout(1,()=>{
         holder.animate({
           props:{
             x:-W + 100
           },
-          time:2,
-          rewind:true
+          time:2
+          //rewind:true
+          })
+        })
+        timeout(3,()=>{
+          bookClose.vis(false);
+          bookOpen.vis(true);
+        })
+      })
+      
+      bookOpen.on("click",()=>{
+        timeout(1,()=>{
+        holder.animate({
+          props:{
+            x:0
+          },
+          time:2
+          //rewind:true
+          })
+        })
+        timeout(3,()=>{
+          bookOpen.vis(false);
+          bookClose.vis(true);
         })
       })
       
