@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ZIM - Dropping - Code Creativity</title>
+
+<!-- zimjs.com - JavaScript Canvas Framework -->
+
+<script type="module">
+
+import zim from "https://zimjs.org/cdn/017/zim";
+
+// See Docs under Frame for FIT, FILL, FULL, and TAG
+new Frame(FIT, 1024, 768, interstellar, black, ready, ["sad.png", "happy.png"], "assets/");
+function ready() {
+	
+	// given F (Frame), S (Stage), W (width), H (height)
+	// put code here
+
+
+	// see https://zimjs.com/017/canvas.html for dragging from list to list 
+
+	// Here we drag from list to itself or to square targets 
+	// Or we drag the purple objects from outside the list to the list or to the targets
+	// Also see EXAMPLE 2 link at the bottom right
+
+	
+	const targets = new Tile(new Rectangle(100,100,black,light).reg(CENTER), 3, 1, 150, 0).center().mov(0,200)
+
+	const c = new Container(W,H).addTo().drag({
+		dropTargets:targets.items,
+		// dropHitTest:"reg",
+		dropBack:true,
+		dropFull:true,
+		dropEnd:false,
+		dropCopy:false,
+		dropScale:1.4
+	});
+	c.on("mousedown", ()=>{c.top()})
+
+	STYLE = {color:purple}
+	new Circle().center(c).mov(-100);
+	new Triangle().center(c).mov(100);	
+	
+	
+	
+	
+	// if we want to drag and drop after taking out of List then add it to the container c 
+	// but careful only to add it if we drop on one of the targets of c
+
+
+
+		
+}
+
+</script>
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+</head>
+<body></body>
+</html>

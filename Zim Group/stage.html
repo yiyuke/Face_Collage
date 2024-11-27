@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ZIM - Code Creativity</title>
+
+<!-- zimjs.com - JavaScript Canvas Framework -->
+<script type="module">
+
+import zim from "https://zimjs.org/cdn/017/zim";
+
+// See Docs under Frame for FIT, FILL, FULL, and TAG
+
+new Frame(FIT, 1300, 800, "lightblue", "darker", ready);
+function ready() {
+    
+
+    // Add a background rectangle
+    new Rectangle(W, H, "lightyellow").center();
+
+    // Add a face template
+const faceTemplate = new Circle(200, "pink")
+    .center()
+    .pos(W / 2, H / 2 - 100);
+
+
+
+
+
+
+const targets = new Tile(new Rectangle(100,100,black,light).reg(CENTER), 4, 1, 150, 0).center().mov(0,200)
+
+	const c = new Container(W,H).addTo().drag({
+		dropTargets:targets.items,
+		// dropHitTest:"reg",
+		dropBack:true,
+		dropFull:true,
+		dropEnd:false,
+		dropCopy:false,
+		dropScale:1.4
+	});
+	c.on("mousedown", ()=>{c.top()})
+
+	// Create draggable parts
+    const leftEye = new Circle(30, "blue").center(c).mov(-100);
+    const rightEye = new Circle(30, "blue").center(c).mov(100);
+    const mouth = new Rectangle(80, 20, "green").center(c).mov(0, 100);
+    const nose = new Triangle(50, 50, 50, "red").center(c).mov(0, 50);
+
+	
+  
+}
+
+// end ready
+
+</script>
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+</head>
+<body></body>
+</html>
