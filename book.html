@@ -30,44 +30,35 @@
 
       //make the book
       STYLE = { width: W / 2, color:series(blue, pink, yellow, green)};
-      // add anything you want to each of these Pages
+      //add anything you want to each of these Pages
       const cover0 = new Page();
-      let leftCover = new Pic("leftCover.png").addTo(cover0);
-      leftCover.scaleTo(cover0, 100, 100, FULL).mov(30,30);
+      let leftCover = new Pic({
+        file:"leftCover.png",
+        style:false
+      }).scaleTo(cover0, 100, 100, FULL).center(cover0);
+      //zog(cover0.width,cover0.scale,leftCover.width,leftCover.scale);
 
       const cover1 = new Page();
-      let rightCover = new Pic("rightCover.png").addTo(cover1);
-      rightCover.scaleTo(cover1, 100, 100, FULL).mov(30,30);
+      let rightCover = new Pic("rightCover.png").scaleTo(cover1, 100, 100, FULL).center(cover1);
 
+      const features = [];
+      
+      
       //make the first face
       const page1 = new Page();
-      let pic1 = new Pic("almos/almos.jpg").addTo(page1);
-      pic1.scaleTo(page1, 90, 90).mov(30, 30);
+      let pic1 = new Pic("almos/almos.jpg").scaleTo(page1, 90, 90).addTo(page1).mov(30, 30);
       
-      const features = [];
-      let leftEyePic1 = new Pic("almos/almos-left.png").addTo(page1);
-      leftEyePic1.scaleTo(page1, 100, 100).mov(100, 100);
+      let leftEyePic1 = new Pic("almos/almos-left.png").scaleTo(page1, 20, 20).loc(195, 386, page1);
       features.push(leftEyePic1);
       
-      let rightEyePic1 = new Pic("almos/almos-right.png").addTo(page1);
-      rightEyePic1.scaleTo(page1, 100, 100).mov(100, 100);
+      let rightEyePic1 = new Pic("almos/almos-right.png").scaleTo(page1, 14, 14).loc(330, 340, page1);
       features.push(rightEyePic1);
       
-      let mouthPic1 = new Pic("almos/almos-mouth.png").addTo(page1);
-      mouthPic1.scaleTo(page1, 100, 100).mov(100, 100);
+      let mouthPic1 = new Pic("almos/almos-mouth.png").scaleTo(page1, 22, 22).loc(267, 505, page1);
       features.push(mouthPic1);
       
-      let nosePic1 = new Pic("almos/almos-nose.png").addTo(page1);
-      nosePic1.scaleTo(page1, 100, 100).mov(100, 100);
+      let nosePic1 = new Pic("almos/almos-nose.png").scaleTo(page1, 15, 15).loc(295, 408, page1);
       features.push(nosePic1);
-
-      features.forEach(feature => {
-          feature.on("click", () => {
-              new Pic(feature.file).addTo(featuresContainer).center();
-          });
-      });
-
-      
 
 
       //make the second page
@@ -75,22 +66,92 @@
       let pic2 = new Pic("joseph/joseph.jpg").addTo(page2);
       pic2.scaleTo(page2, 90, 90).mov(30, 30);
 
+      let leftEyePic2 = new Pic("joseph/joseph-left.png").scaleTo(page2, 16, 16).loc(152, 230, page2);
+      features.push(leftEyePic2);
+      
+      let rightEyePic2 = new Pic("joseph/joseph-right.png").scaleTo(page2, 16, 16).loc(255, 224, page2);
+      features.push(rightEyePic2);
+      
+      let mouthPic2 = new Pic("joseph/joseph-mouth.png").scaleTo(page2, 22, 22).loc(196, 348, page2);
+      features.push(mouthPic2);
+      
+      let nosePic2 = new Pic("joseph/joseph-nose.png").scaleTo(page2, 14, 14).loc(213, 272, page2);
+      features.push(nosePic2);
+
+      //make the third page
       const page3 = new Page();
       let pic3 = new Pic("micheal/micheal.jpg").addTo(page3);
       pic3.scaleTo(page3, 90, 90).mov(30, 30);
-    
+      
+      let leftEyePic3 = new Pic("micheal/micheal-left.png").scaleTo(page3, 12, 12).loc(187, 220, page3);//.addTo(page3).place();
+      features.push(leftEyePic3);
+      
+      let rightEyePic3 = new Pic("micheal/micheal-right.png").scaleTo(page3, 12, 12).loc(262, 218, page3);
+      features.push(rightEyePic3);
+      
+      let mouthPic3 = new Pic("micheal/micheal-mouth.png").scaleTo(page3, 14, 14).loc(218, 285, page3);
+      features.push(mouthPic3);
+      
+      let nosePic3 = new Pic("micheal/micheal-nose.png").scaleTo(page3, 8, 8).loc(234, 237, page3);
+      features.push(nosePic3);
+
+      //make the fourth page
       const page4 = new Page();
       let pic4 = new Pic("mohammad/mohammad.jpg").addTo(page4);
-      pic4.scaleTo(page4, 90, 120).mov(30, 30);
+      pic4.scaleTo(page4, 90, 100).mov(30, 30);
 
+      let leftEyePic4  = new Pic("mohammad/mohammad-left.png").scaleTo(page4, 8, 8).loc(199, 266, page4);
+      features.push(leftEyePic4);
+      
+      let rightEyePic4 = new Pic("mohammad/mohammad-right.png").scaleTo(page4, 8, 8).loc(239, 275, page4);
+      features.push(rightEyePic4);
+      
+      let mouthPic4 = new Pic("mohammad/mohammad-mouth.png").scaleTo(page4, 8, 8).loc(212, 326, page4);
+      features.push(mouthPic4);
+      
+      let nosePic4 = new Pic("mohammad/mohammad-nose.png").scaleTo(page4, 8, 8).loc(205, 287, page4);
+      features.push(nosePic4);
+
+      //make the fifth page
       const page5 = new Page();
       let pic5 = new Pic("prince/prince.jpg").addTo(page5);
       pic5.scaleTo(page5, 90, 90).mov(30, 30);
 
+      let leftEyePic5  = new Pic("prince/prince-left.png").scaleTo(page5, 22, 22).loc(219, 227, page5);
+      features.push(leftEyePic5);
+      
+      let rightEyePic5 = new Pic("prince/prince-right.png").scaleTo(page5, 12, 12).loc(359, 231, page5);
+      features.push(rightEyePic5);
+      
+      let mouthPic5 = new Pic("prince/prince-mouth.png").scaleTo(page5, 22, 22).loc(283, 356, page5);
+      features.push(mouthPic5);
+      
+      let nosePic5 = new Pic("prince/prince-nose.png").scaleTo(page5, 16, 16).loc(310, 242, page5);
+      features.push(nosePic5);
+
+      //make the sixth page
       const page6 = new Page();
       let pic6 = new Pic("rene/rene.jpg").addTo(page6);
       pic6.scaleTo(page6, 90, 90).mov(30, 30);
 
+      let leftEyePic6 = new Pic("rene/rene-left.png").scaleTo(page6, 20, 20).loc(135, 250, page6);
+      features.push(leftEyePic6);
+      
+      let rightEyePic6 = new Pic("rene/rene-right.png").scaleTo(page6, 20, 20).loc(269, 245, page6);
+      features.push(rightEyePic6);
+      
+      let mouthPic6 = new Pic("rene/rene-mouth.png").scaleTo(page6, 30, 30).loc(176, 371,page6);
+      features.push(mouthPic6);
+      
+      let nosePic6 = new Pic("rene/rene-nose.png").scaleTo(page6, 18, 18).loc(210, 284, page6);
+      features.push(nosePic6);
+
+      features.forEach(feature => {
+          feature.on("click", () => {
+              new Pic(feature.file).addTo(featuresContainer).center();
+          });
+      });
+      
       const pages = [cover0, cover1, page1, page2, page3, page4, page5, page6];
       // 0 (default) will show only page 0 at right - like a cover
       // 1 will show page 0 and page 1 to start - like an open book
