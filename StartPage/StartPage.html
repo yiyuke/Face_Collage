@@ -72,7 +72,10 @@
           const startButton = new zim.Pic("assets/StartButton.png")
             .sca(0.1) // 调整图片缩放
             .pos(frame.width / 2 - 150, frame.height - 150) // 水平居中，靠近底部
-            .addTo(stage);
+            .addTo(stage)
+            .tap(() => {
+              window.location.href = "../book.html";
+            });
 
           stage.update();
         },

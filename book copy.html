@@ -93,8 +93,7 @@
         const rightEye = [];
         const mouth = [];
         const nose = [];
-        
-  
+
         //make the first face
         const page1 = new Page();
         let pic1 = new Pic("almos/almos.jpg")
@@ -104,8 +103,7 @@
 
         let leftEyePic1 = new Pic("almos/almos-left.png")
           .scaleTo(page1, 20, 20)
-          .loc(195, 386, page1)
-          .sha(black,0,0,20)
+          .loc(195, 386, page1);
         leftEye.push(leftEyePic1);
 
         let rightEyePic1 = new Pic("almos/almos-right.png")
@@ -248,51 +246,12 @@
           .loc(210, 284, page6);
         nose.push(nosePic6);
 
-        const allFeatures = [leftEye, rightEye, nose, mouth];
-        allFeatures.forEach(featureArray => {
-          featureArray.forEach(feature => {
-            feature.reg(CENTER,CENTER,true);
-            // feature.animate({
-            //   props:{rotation:10},
-            //   time:1,
-            //   loop:true
-            // });
-            feature.on("mouseover", e => {
-              //e.target.pauseAnimate();
-              e.target.scale = 0.6;
-              S.update();
-            });
-            feature.on("mouseout", e => {
-              //e.target.pauseAnimate(false);
-              e.target.scale = 0.5;
-              S.update();
-            });
-          });
-        });
-        
-        interval(.04, (obj) => {
-          //zog(allFeatures);
-          //zog(allFeatures[0][obj.count%allFeatures[0].length]);
-          loop(allFeatures,(features)=>{
-            features[obj.count%features.length].rot(rand(2,5,true,true));
-          });
-          S.update();
-        })
-
         // Create counter object to track feature usage
         const featureCounts = {
           leftEye: 0,
           rightEye: 0,
           nose: 0,
           mouth: 0,
-        };
-
-        // Add this near your other global variables
-        const activeFeatures = {
-          leftEye: null,
-          rightEye: null,
-          nose: null,
-          mouth: null
         };
 
         // Function to make features clickable
@@ -305,42 +264,13 @@
                 return;
               }
 
-              // Create clone and store reference
+              // Create clone and add to features container
               let clone = feature.clone();
-              activeFeatures[featureType] = clone;
-              
-              // Add to container and make draggable
               clone.addTo(featuresContainer);
-              clone.drag();
-              
-              // Add double click to remove feature
-              clone.on("dblclick", () => {
-                clone.removeFrom(featuresContainer);
-                featureCounts[featureType]--;
-                activeFeatures[featureType] = null;
-                S.update();
-              });
-
-              // Add right click for rotation (optional)
-              // clone.on("rightclick", () => {
-              //   clone.rotate(20);
-              //   S.update();
-              // });
-
-              // Example of accessing specific clone properties
-              clone.name = `${featureType}_clone`;
-              clone.originalFeature = feature;
-              
-              // You can also add hover effects
-              clone.on("mouseover", () => {
-                clone.scale = 1.1;
-                S.update();
-              });
-              
-              clone.on("mouseout", () => {
-                clone.scale = 1;
-                S.update();
-              });
+              // leftEyeContainer.removeAllChildren();
+              // clone.center(leftEyeContainer);
+              //leftEyeContainer.mouseChildren = false;
+              clone.drag(); // Make clone draggable
 
               // Update counter
               featureCounts[featureType]++;
