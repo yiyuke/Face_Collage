@@ -70,7 +70,40 @@
         paper.scaleTo(bg, 100, 100, FILL).mov(0, 0);
 
         //make the container for the features
-        const featuresContainer = new Container(W, H).addTo().ord(1);
+        const featuresContainer = new Container(W, H).addTo(); //.outline();
+
+        // Create each container
+        const leftEyeContainer = new Container(150, 150)
+          .addTo(featuresContainer)
+          .reg(CENTER)
+          .pos(250, 200);
+        //.outline();
+
+        const rightEyeContainer = new Container(150, 150)
+          .addTo(featuresContainer)
+          .reg(CENTER)
+          .pos(600, 200);
+        //.outline();
+
+        const noseContainer = new Container(150, 150)
+          .addTo(featuresContainer)
+          .reg(CENTER)
+          .pos(425, 325);
+        //.outline();
+
+        const mouthContainer = new Container(150, 150)
+          .addTo(featuresContainer)
+          .reg(CENTER)
+          .pos(425, 500);
+        //.outline();
+
+        // Store container references
+        const featureContainers = {
+          leftEye: leftEyeContainer,
+          rightEye: rightEyeContainer,
+          nose: noseContainer,
+          mouth: mouthContainer,
+        };
 
         //make the book
         STYLE = { width: W / 2, color: series(blue, pink, yellow, green) };
@@ -93,8 +126,7 @@
         const rightEye = [];
         const mouth = [];
         const nose = [];
-        
-  
+
         //make the first face
         const page1 = new Page();
         let pic1 = new Pic("almos/almos.jpg")
@@ -104,8 +136,8 @@
 
         let leftEyePic1 = new Pic("almos/almos-left.png")
           .scaleTo(page1, 20, 20)
-          .loc(195, 386, page1)
-          .sha(black,0,0,20)
+          .loc(195, 386, page1);
+        //.sha(black, 0, 0, 20);
         leftEye.push(leftEyePic1);
 
         let rightEyePic1 = new Pic("almos/almos-right.png")
@@ -249,35 +281,35 @@
         nose.push(nosePic6);
 
         const allFeatures = [leftEye, rightEye, nose, mouth];
-        allFeatures.forEach(featureArray => {
-          featureArray.forEach(feature => {
-            feature.reg(CENTER,CENTER,true);
+        allFeatures.forEach((featureArray) => {
+          featureArray.forEach((feature) => {
+            feature.reg(CENTER, CENTER, true);
             // feature.animate({
             //   props:{rotation:10},
             //   time:1,
             //   loop:true
             // });
-            feature.on("mouseover", e => {
+            feature.on("mouseover", (e) => {
               //e.target.pauseAnimate();
               e.target.scale = 0.6;
               S.update();
             });
-            feature.on("mouseout", e => {
+            feature.on("mouseout", (e) => {
               //e.target.pauseAnimate(false);
               e.target.scale = 0.5;
               S.update();
             });
           });
         });
-        
-        interval(.04, (obj) => {
+
+        interval(0.04, (obj) => {
           //zog(allFeatures);
           //zog(allFeatures[0][obj.count%allFeatures[0].length]);
-          loop(allFeatures,(features)=>{
-            features[obj.count%features.length].rot(rand(2,5,true,true));
+          loop(allFeatures, (features) => {
+            features[obj.count % features.length].rot(rand(2, 5, true, true));
           });
           S.update();
-        })
+        });
 
         // Create counter object to track feature usage
         const featureCounts = {
@@ -292,58 +324,50 @@
           leftEye: null,
           rightEye: null,
           nose: null,
-          mouth: null
+          mouth: null,
         };
 
         // Function to make features clickable
         function makeFeatureClickable(featureArray, featureType) {
           featureArray.forEach((feature) => {
             feature.on("mousedown", () => {
-              // Check if feature limit is reached
-              if (featureCounts[featureType] >= 1) {
-                alert(`You can only use one ${featureType}!`);
-                return;
+              // If there's an existing clone in the container, remove it and show its original feature
+              if (activeFeatures[featureType]) {
+                activeFeatures[featureType].originalFeature.vis(true);
+                activeFeatures[featureType].originalFeature.enabled = true;
+                activeFeatures[featureType].removeFrom(
+                  featureContainers[featureType]
+                );
               }
 
-              // Create clone and store reference
+              // Create clone of the new feature
               let clone = feature.clone();
-              activeFeatures[featureType] = clone;
-              
-              // Add to container and make draggable
-              clone.addTo(featuresContainer);
-              clone.drag();
-              
-              // Add double click to remove feature
+              clone.originalFeature = feature;
+
+              // Add clone to the appropriate container
+              clone.center(featureContainers[featureType]);
+              clone.scale = 1;
+              clone.transform();
+              zog(featureType);
+              zog(featureContainers[featureType].numChildren);
+
+              // Hide original feature
+              feature.vis(false);
+              feature.enabled = false;
+
+              // Add double click to return feature
               clone.on("dblclick", () => {
-                clone.removeFrom(featuresContainer);
-                featureCounts[featureType]--;
+                //clone.transformControl.remove();
+                clone.removeFrom(featureContainers[featureType]);
+                feature.vis(true);
+                feature.enabled = true;
                 activeFeatures[featureType] = null;
                 S.update();
               });
 
-              // Add right click for rotation (optional)
-              // clone.on("rightclick", () => {
-              //   clone.rotate(20);
-              //   S.update();
-              // });
-
-              // Example of accessing specific clone properties
-              clone.name = `${featureType}_clone`;
-              clone.originalFeature = feature;
-              
-              // You can also add hover effects
-              clone.on("mouseover", () => {
-                clone.scale = 1.1;
-                S.update();
-              });
-              
-              clone.on("mouseout", () => {
-                clone.scale = 1;
-                S.update();
-              });
-
-              // Update counter
-              featureCounts[featureType]++;
+              // Update active feature reference
+              activeFeatures[featureType] = clone;
+              S.update();
             });
           });
         }
@@ -424,6 +448,26 @@
             bookClose.vis(true);
           });
         });
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //Save the collage face
+        const saveButton = new Button({
+          width: 150,
+          height: 100,
+          backgroundColor: green,
+          color: white,
+          label: "SAVE",
+          corner: 10,
+        })
+          .sca(0.8)
+          .pos(70, 60, RIGHT, BOTTOM, bg);
+        // .tap(() => {
+        //   holder.removeFrom();
+        //   bookOpen.removeFrom();
+        //   bg.save(S, "Face Collage");
+        //   holder.addTo();
+        //   bookOpen.addTo();
+        // });
       } // end ready
     </script>
     <meta name="viewport" content="width=device-width, user-scalable=no" />
