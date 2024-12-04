@@ -7,6 +7,7 @@
     <!-- zimjs.com - JavaScript Canvas Framework -->
     <script type="module">
       import zim from "https://zimjs.org/cdn/017/zim";
+      import pizzazz from "https://zimjs.org/cdn/015/zim_pizzazz";
       const path = "covers/";
       const face1 = [
         "almos/almos.jpg",
@@ -280,6 +281,7 @@
           .loc(210, 284, page6);
         nose.push(nosePic6);
 
+        //make the features wiggle
         const allFeatures = [leftEye, rightEye, nose, mouth];
         allFeatures.forEach((featureArray) => {
           featureArray.forEach((feature) => {
@@ -430,6 +432,8 @@
           timeout(3, () => {
             bookClose.vis(false);
             bookOpen.vis(true);
+            finishButton.vis(true);
+            saveButton.vis(true);
           });
         });
 
@@ -442,6 +446,8 @@
               time: 2,
               //rewind:true
             });
+            finishButton.vis(false);
+            saveButton.vis(false);
           });
           timeout(3, () => {
             bookOpen.vis(false);
@@ -450,24 +456,68 @@
         });
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //Finish the collage and show the face
+        const finishButton = new Button({
+          width: 150,
+          height: 80,
+          backgroundColor: blue,
+          color: white,
+          label: "FINISH",
+        })
+          .sca(0.8)
+          .pos(0, 30, CENTER, BOTTOM)
+          .addTo()
+          .vis(false);
+
+        zog("finishButton created:", finishButton);
+
+        finishButton.on("click", () => {
+          zog("finish button clicked");
+          let emitter = new Emitter({
+            obj:makeIcon("heart",red),
+            //obj:new Poly(170, 5, .6,clear,[red,green,purple,blue],3),
+            force:{min:2, max:3},
+            gravity:2,
+            interval:.2,
+            random:{scale:{min:.5, max:2}},
+            life:4,
+            angle:{min:-90-60, max:-90+60},
+            startPaused:true
+          }).reg(CENTER).center().spurt(20).mov(0,-100);
+          // Loop through each feature container
+          for (const featureType in featureContainers) {
+            const container = featureContainers[featureType];
+            
+            // Check if the container has children
+            if (container.numChildren > 0) {
+              // Loop through each feature in the container
+              container.wiggle("x", container.x, 3, 8, .5, 1, 4);
+              container.wiggle("y", container.y, 3, 8, .5, 1, 4);
+            } else {
+              zog(`No features found in ${featureType} container`);
+            }
+          }
+          S.update(); // Ensure the stage updates after animation
+        });
+
         //Save the collage face
         const saveButton = new Button({
           width: 150,
-          height: 100,
+          height: 80,
           backgroundColor: green,
           color: white,
           label: "SAVE",
           corner: 10,
         })
           .sca(0.8)
-          .pos(70, 60, RIGHT, BOTTOM, bg);
-        // .tap(() => {
-        //   holder.removeFrom();
-        //   bookOpen.removeFrom();
-        //   bg.save(S, "Face Collage");
-        //   holder.addTo();
-        //   bookOpen.addTo();
-        // });
+          .pos(80, 30, RIGHT, TOP)
+          .addTo()
+          .vis(false);
+        saveButton.on("click", () => {
+          zog("save button clicked");
+          //bg.save(S, "Face Collage");
+        });
+
       } // end ready
     </script>
     <meta name="viewport" content="width=device-width, user-scalable=no" />
