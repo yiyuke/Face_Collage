@@ -61,6 +61,7 @@
         "paper.jpg",
         "leftCover.png",
         "rightCover.png",
+        "bb.jpeg",
       ];
 
       new Frame(FIT, 1024, 768, light, dark, ready, assets, path);
@@ -122,6 +123,110 @@
         let rightCover = new Pic("rightCover.png")
           .scaleTo(cover1, 100, 100, FULL)
           .center(cover1);
+
+// instruction pages
+          const inst1 = new Page();
+        let instleft = new Pic("bb.jpeg")
+          .scaleTo(inst1, 100, 100, FULL)
+          .center(inst1);
+
+          const inst2 = new Page();
+        let instright = new Pic("bb.jpeg").rot(180)
+          .scaleTo(inst2, 100, 100, FULL)
+          .center(inst2);
+
+          
+          const title = "INSTRUCTIONS";
+	    new Label(title, 30, "Schoolbell", black)
+      .addTo(inst1).pos(40, 40);
+
+
+      const stuff = "👀 Step 1: Open the Book";
+new Label(stuff, 30, "Schoolbell", black)
+  .addTo(inst1).pos(40, 120);
+
+const xx = "Flip through these pages";
+new Label(xx, 18, "Schoolbell", black)
+  .addTo(inst1).pos(40, 200);
+
+const yy = "to see funny noses, eyes, and mouths.";
+new Label(yy, 18, "Schoolbell", black)
+  .addTo(inst1).pos(40, 240);
+
+const step2 = "🖱️ Step 2: Pick Your Favorites";
+new Label(step2, 30, "Schoolbell", black)
+  .addTo(inst1).pos(40, 280);
+
+const pickFavorites1 = "Click on TWO eyes, ONE nose,";
+new Label(pickFavorites1, 18, "Schoolbell", black)
+  .addTo(inst1).pos(40, 360);
+
+const pickFavorites2 = "and ONE mouth that you like best!";
+new Label(pickFavorites2, 18, "Schoolbell", black)
+  .addTo(inst1).pos(40, 400);
+
+const pickFavorites3 = "They’ll jump out of the book";
+new Label(pickFavorites3, 18, "Schoolbell", black)
+  .addTo(inst1).pos(40, 440);
+
+const pickFavorites4 = "and wait for you to create a face.";
+new Label(pickFavorites4, 18, "Schoolbell", black)
+  .addTo(inst1).pos(40, 480);
+
+const step3 = "📖 Step 3: Close the Book";
+new Label(step3, 30, "Schoolbell", black)
+  .addTo(inst1).pos(40, 520);
+
+const closeBook1 = "When you’re done choosing,";
+new Label(closeBook1, 18, "Schoolbell", black)
+  .addTo(inst1).pos(40, 600);
+
+const closeBook2 = "close the book so you can get to work.";
+new Label(closeBook2, 18, "Schoolbell", black)
+  .addTo(inst1).pos(40, 640);
+
+const closeBook3 = "It’s face-building time!";
+new Label(closeBook3, 18, "Schoolbell", black)
+  .addTo(inst1).pos(40, 680);
+
+const step4 = "🖐️ Step 4: Drag & Drop";
+new Label(step4, 30, "Schoolbell", black)
+  .addTo(inst2).pos(40, 120);
+
+const dragDrop1 = "Drag your chosen pieces";
+new Label(dragDrop1, 18, "Schoolbell", black)
+  .addTo(inst2).pos(40, 200);
+
+const dragDrop2 = "onto the blank face.";
+new Label(dragDrop2, 18, "Schoolbell", black)
+  .addTo(inst2).pos(40, 240);
+
+const dragDrop3 = "Make a wacky, funny, or scary face!";
+new Label(dragDrop3, 18, "Schoolbell", black)
+  .addTo(inst2).pos(40, 280);
+
+const step5 = "✨ Step 5: Hit the Finish Button";
+new Label(step5, 30, "Schoolbell", black)
+  .addTo(inst2).pos(40, 360);
+
+const finishButton1 = "Once your face is ready,";
+new Label(finishButton1, 18, "Schoolbell", black)
+  .addTo(inst2).pos(40, 440);
+
+const finishButton2 = "hit the 'Finish' button.";
+new Label(finishButton2, 18, "Schoolbell", black)
+  .addTo(inst2).pos(40, 480);
+
+const finishButton3 = "Watch your face come to life";
+new Label(finishButton3, 18, "Schoolbell", black)
+  .addTo(inst2).pos(40, 520);
+
+const finishButton4 = "with a fun little animation!";
+new Label(finishButton4, 18, "Schoolbell", black)
+  .addTo(inst2).pos(40, 560);
+
+   
+          
 
         const leftEye = [];
         const rightEye = [];
@@ -383,6 +488,8 @@
         const pages = [
           cover0,
           cover1,
+          inst1,
+          inst2,
           page1,
           page2,
           page3,
