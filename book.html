@@ -341,7 +341,6 @@
                   featureContainers[featureType]
                 );
               }
-
               // Create clone of the new feature
               let clone = feature.clone();
               clone.originalFeature = feature;
@@ -349,7 +348,7 @@
               // Add clone to the appropriate container
               clone.center(featureContainers[featureType]);
               clone.scale = 1;
-              clone.transform();
+              featureContainers[featureType].transform({ all: true });
               zog(featureType);
               zog(featureContainers[featureType].numChildren);
 
@@ -474,25 +473,29 @@
         finishButton.on("click", () => {
           zog("finish button clicked");
           let emitter = new Emitter({
-            obj:makeIcon("heart",red),
+            obj: makeIcon("heart", red),
             //obj:new Poly(170, 5, .6,clear,[red,green,purple,blue],3),
-            force:{min:2, max:3},
-            gravity:2,
-            interval:.2,
-            random:{scale:{min:.5, max:2}},
-            life:4,
-            angle:{min:-90-60, max:-90+60},
-            startPaused:true
-          }).reg(CENTER).center().spurt(20).mov(0,-100);
+            force: { min: 2, max: 3 },
+            gravity: 2,
+            interval: 0.2,
+            random: { scale: { min: 0.5, max: 2 } },
+            life: 4,
+            angle: { min: -90 - 60, max: -90 + 60 },
+            startPaused: true,
+          })
+            .reg(CENTER)
+            .center()
+            .spurt(20)
+            .mov(0, -100);
           // Loop through each feature container
           for (const featureType in featureContainers) {
             const container = featureContainers[featureType];
-            
+
             // Check if the container has children
             if (container.numChildren > 0) {
               // Loop through each feature in the container
-              container.wiggle("x", container.x, 3, 8, .5, 1, 4);
-              container.wiggle("y", container.y, 3, 8, .5, 1, 4);
+              container.wiggle("x", container.x, 3, 8, 0.5, 1, 4);
+              container.wiggle("y", container.y, 3, 8, 0.5, 1, 4);
             } else {
               zog(`No features found in ${featureType} container`);
             }
@@ -515,9 +518,8 @@
           .vis(false);
         saveButton.on("click", () => {
           zog("save button clicked");
-          //bg.save(S, "Face Collage");
+          new Loader().save(S, "Face Collage");
         });
-
       } // end ready
     </script>
     <meta name="viewport" content="width=device-width, user-scalable=no" />
