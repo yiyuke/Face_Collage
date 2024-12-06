@@ -77,10 +77,16 @@
         "paper.jpg",
         "leftCover.png",
         "rightCover.png",
+        "background.jpg",
+        "Face.png",
+        "Factory.png",
+        "Fun.png",
+        "StartButton.png",
       ];
 
       new Frame(FIT, 1024, 768, light, dark, ready, assets, path);
       function ready() {
+
         //make the background
         const bg = new Rectangle(W, H, clear).addTo();
         const paper = new Pic("paper.jpg").addTo(bg);
@@ -876,6 +882,36 @@
             holder.vis(true);
           });
         });
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //start page
+        const startPage = new Container(W, H).reg(CENTER).center().outline();
+        const startBg = new Pic("background.jpg").center(startPage);
+        startBg.sca(
+          Math.min(W / startBg.width, H / startBg.height) * 1.2
+        )
+          .centerReg()
+          .addTo(startPage);
+
+        const fun = new Pic("Fun.png").sca(0.16).addTo(startPage).loc(49, 243);
+        const face = new Pic("Face.png").sca(0.12).addTo(startPage).loc(300, 191);
+        const factory = new Pic("Factory.png").sca(0.12).addTo(startPage).loc(571, 234);
+
+        const startButton = new Pic("StartButton.png")
+          .sca(0.1)
+          .addTo(startPage)
+          .loc(385, 588)
+          .tap(() => {
+            zog("start button clicked");
+            startPage.animate({
+              props:{ x : -1000 }, 
+              time: 2,
+              ease: "linear",
+            });
+          });
+
+        const playSoundButton = new Pic("PlaySoundButton.png")
+
       } // end ready
     </script>
     <meta name="viewport" content="width=device-width, user-scalable=no" />
