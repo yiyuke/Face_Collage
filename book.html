@@ -2,13 +2,19 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Book</title>
+    <title>Fun Face Factory</title>
 
     <!-- zimjs.com - JavaScript Canvas Framework -->
     <script type="module">
       import zim from "https://zimjs.org/cdn/017/zim";
       import pizzazz from "https://zimjs.org/cdn/015/zim_pizzazz";
-      const path = "covers/";
+      const path = "assets/";
+      const sounds = [
+        "sounds/bgm.mp3",
+        "sounds/click.mp3",
+        "sounds/book-open.wav",
+        "sounds/book-close.wav",
+      ];
       const face1 = [
         "almos/almos.jpg",
         "almos/almos-left.png",
@@ -68,12 +74,14 @@
         "rene/sticker2.png",
       ];
       const assets = [
+        ...sounds,
         ...face1,
         ...face2,
         ...face3,
         ...face4,
         ...face5,
         ...face6,
+        "Schoolbell.ttf",
         "paper.jpg",
         "leftCover.png",
         "rightCover.png",
@@ -82,11 +90,11 @@
         "Factory.png",
         "Fun.png",
         "StartButton.png",
+        "arrow.png",
       ];
 
       new Frame(FIT, 1024, 768, light, dark, ready, assets, path);
       function ready() {
-
         //make the background
         const bg = new Rectangle(W, H, clear).addTo();
         const paper = new Pic("paper.jpg").addTo(bg);
@@ -157,17 +165,18 @@
           .scaleTo(inst2, 100, 100, FULL)
           .center(inst2);
 
+        //STYLE = { font: "Schoolbell" };
         const title = "INSTRUCTIONS";
-        new Label(title, 30, "Schoolbell", black).addTo(inst1).pos(40, 40);
+        new Label(title, 30, "Schoolbell", black).addTo(inst1).pos(40, 50);
 
         const stuff = "👀 Step 1: Open the Book";
         new Label(stuff, 30, "Schoolbell", black).addTo(inst1).pos(40, 120);
 
         const xx = "Flip through these pages";
-        new Label(xx, 18, "Schoolbell", black).addTo(inst1).pos(40, 200);
+        new Label(xx, 18, "Schoolbell", black).addTo(inst1).pos(40, 180);
 
         const yy = "to see funny noses, eyes, and mouths.";
-        new Label(yy, 18, "Schoolbell", black).addTo(inst1).pos(40, 240);
+        new Label(yy, 18, "Schoolbell", black).addTo(inst1).pos(40, 220);
 
         const step2 = "🖱️ Step 2: Pick Your Favorites";
         new Label(step2, 30, "Schoolbell", black).addTo(inst1).pos(40, 280);
@@ -175,22 +184,22 @@
         const pickFavorites1 = "Click on TWO eyes, ONE nose,";
         new Label(pickFavorites1, 18, "Schoolbell", black)
           .addTo(inst1)
-          .pos(40, 360);
+          .pos(40, 340);
 
         const pickFavorites2 = "and ONE mouth that you like best!";
         new Label(pickFavorites2, 18, "Schoolbell", black)
           .addTo(inst1)
-          .pos(40, 400);
+          .pos(40, 380);
 
         const pickFavorites3 = "They’ll jump out of the book";
         new Label(pickFavorites3, 18, "Schoolbell", black)
           .addTo(inst1)
-          .pos(40, 440);
+          .pos(40, 420);
 
         const pickFavorites4 = "and wait for you to create a face.";
         new Label(pickFavorites4, 18, "Schoolbell", black)
           .addTo(inst1)
-          .pos(40, 480);
+          .pos(40, 460);
 
         const step3 = "📖 Step 3: Close the Book";
         new Label(step3, 30, "Schoolbell", black).addTo(inst1).pos(40, 520);
@@ -198,52 +207,61 @@
         const closeBook1 = "When you’re done choosing,";
         new Label(closeBook1, 18, "Schoolbell", black)
           .addTo(inst1)
-          .pos(40, 600);
+          .pos(40, 580);
 
         const closeBook2 = "close the book so you can get to work.";
         new Label(closeBook2, 18, "Schoolbell", black)
           .addTo(inst1)
-          .pos(40, 640);
+          .pos(40, 620);
 
         const closeBook3 = "It’s face-building time!";
         new Label(closeBook3, 18, "Schoolbell", black)
           .addTo(inst1)
-          .pos(40, 680);
+          .pos(40, 660);
 
         const step4 = "🖐️ Step 4: Drag & Drop";
         new Label(step4, 30, "Schoolbell", black).addTo(inst2).pos(40, 120);
 
         const dragDrop1 = "Drag your chosen pieces";
-        new Label(dragDrop1, 18, "Schoolbell", black).addTo(inst2).pos(40, 200);
+        new Label(dragDrop1, 18, "Schoolbell", black).addTo(inst2).pos(40, 180);
 
         const dragDrop2 = "onto the blank face.";
-        new Label(dragDrop2, 18, "Schoolbell", black).addTo(inst2).pos(40, 240);
+        new Label(dragDrop2, 18, "Schoolbell", black).addTo(inst2).pos(40, 220);
 
         const dragDrop3 = "Make a wacky, funny, or scary face!";
-        new Label(dragDrop3, 18, "Schoolbell", black).addTo(inst2).pos(40, 280);
+        new Label(dragDrop3, 18, "Schoolbell", black).addTo(inst2).pos(40, 260);
 
         const step5 = "✨ Step 5: Hit the Finish Button";
-        new Label(step5, 30, "Schoolbell", black).addTo(inst2).pos(40, 360);
+        new Label(step5, 30, "Schoolbell", black).addTo(inst2).pos(40, 320);
 
         const finishButton1 = "Once your face is ready,";
         new Label(finishButton1, 18, "Schoolbell", black)
           .addTo(inst2)
-          .pos(40, 440);
+          .pos(40, 380);
 
         const finishButton2 = "hit the 'Finish' button.";
         new Label(finishButton2, 18, "Schoolbell", black)
           .addTo(inst2)
-          .pos(40, 480);
+          .pos(40, 420);
 
         const finishButton3 = "Watch your face come to life";
         new Label(finishButton3, 18, "Schoolbell", black)
           .addTo(inst2)
-          .pos(40, 520);
+          .pos(40, 460);
 
         const finishButton4 = "with a fun little animation!";
         new Label(finishButton4, 18, "Schoolbell", black)
           .addTo(inst2)
-          .pos(40, 560);
+          .pos(40, 500);
+
+        const dragPage = "Drag the corner to turn the page";
+        new Label(dragPage, 30, "Schoolbell", black).addTo(inst2).pos(80, 640);
+        new Pic("arrow.png")
+          .reg(CENTER)
+          .sca(0.4)
+          .rot(45)
+          .addTo(inst2)
+          .pos(320, 640);
 
         //initialize arrays for features and accessories
         const leftEye = [];
@@ -728,10 +746,10 @@
         makeFeatureClickable(mouth, "mouth");
 
         const pages = [
-          cover0,
-          cover1,
           inst1,
           inst2,
+          cover0,
+          cover1,
           page1,
           page2,
           page3,
@@ -750,6 +768,7 @@
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //make the buttons to open and close the book
+        STYLE = { font: "Schoolbell" };
         const bookOpen = new Button({
           width: 200,
           height: 50,
@@ -768,8 +787,10 @@
           .pos(0, 30, CENTER, TOP)
           .addTo();
 
+        const bookCloseSound = new Aud("sounds/book-close.wav");
         bookClose.on("click", () => {
-          timeout(1, () => {
+          bookCloseSound.play();
+          timeout(0.5, () => {
             holder.animate({
               props: {
                 x: -W + 100,
@@ -786,8 +807,10 @@
           });
         });
 
+        const bookOpenSound = new Aud("sounds/book-open.wav");
         bookOpen.on("click", () => {
-          timeout(1, () => {
+          bookOpenSound.play();
+          timeout(0.5, () => {
             holder.animate({
               props: {
                 x: 0,
@@ -808,13 +831,13 @@
         //Finish the collage and show the face
         const finishButton = new Button({
           width: 150,
-          height: 80,
+          height: 50,
           backgroundColor: blue,
           color: white,
           label: "FINISH",
         })
           .sca(0.8)
-          .pos(0, 30, CENTER, BOTTOM)
+          .pos(0, 40, CENTER, BOTTOM)
           .addTo()
           .vis(false);
 
@@ -856,14 +879,14 @@
         //Save the collage face
         const saveButton = new Button({
           width: 150,
-          height: 80,
+          height: 50,
           backgroundColor: green,
           color: white,
           label: "SAVE",
           corner: 10,
         })
           .sca(0.8)
-          .pos(80, 30, RIGHT, TOP)
+          .pos(80, 40, RIGHT, BOTTOM)
           .addTo()
           .vis(false);
         saveButton.on("click", () => {
@@ -885,33 +908,86 @@
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //start page
-        const startPage = new Container(W, H).reg(CENTER).center().outline();
+        const startPage = new Container(W, H).reg(CENTER).center(); //.outline();
         const startBg = new Pic("background.jpg").center(startPage);
-        startBg.sca(
-          Math.min(W / startBg.width, H / startBg.height) * 1.2
-        )
+        startBg
+          .sca(Math.min(W / startBg.width, H / startBg.height) * 1.2)
           .centerReg()
           .addTo(startPage);
 
-        const fun = new Pic("Fun.png").sca(0.16).addTo(startPage).loc(49, 243);
-        const face = new Pic("Face.png").sca(0.12).addTo(startPage).loc(300, 191);
-        const factory = new Pic("Factory.png").sca(0.12).addTo(startPage).loc(571, 234);
+        const fun = new Pic("Fun.png")
+          .sca(0.16)
+          .addTo(startPage)
+          .loc(49, 243)
+          .animate({
+            from: true,
+            props: { y: -150 },
+            ease: "bounceOut",
+            time: 1.8,
+          });
+        const face = new Pic("Face.png")
+          .sca(0.12)
+          .addTo(startPage)
+          .loc(300, 191)
+          .animate({
+            from: true,
+            props: { y: -150 },
+            ease: "bounceOut",
+            time: 2.4,
+          });
+        const factory = new Pic("Factory.png")
+          .sca(0.12)
+          .addTo(startPage)
+          .loc(571, 234)
+          .animate({
+            from: true,
+            props: { y: -150 },
+            ease: "bounceOut",
+            time: 3,
+          });
 
         const startButton = new Pic("StartButton.png")
           .sca(0.1)
           .addTo(startPage)
-          .loc(385, 588)
+          //.place()
+          .loc(516, 614)
+          .reg(CENTER)
+          .animate({
+            props: { rotation: (-10, 10) },
+            rewind: true,
+            time: 1,
+            loop: true,
+          })
           .tap(() => {
             zog("start button clicked");
             startPage.animate({
-              props:{ x : -1000 }, 
+              props: { x: -1000 },
               time: 2,
               ease: "linear",
             });
           });
 
-        const playSoundButton = new Pic("PlaySoundButton.png")
-
+        const playSoundButton = new Pic("volume.png")
+          .sca(0.1)
+          .addTo()
+          .loc(915, 30);
+        const bgm = new Aud({
+          file: "sounds/bgm.mp3",
+          loop: true,
+          volume: 0.2,
+        });
+        let backingSound;
+        new Toggle({ width: 50, height: 50, backgroundColor: grey })
+          .sca(1)
+          .addTo()
+          .loc(915, 32)
+          .alp(0)
+          .change((e) => {
+            // play the sound if it has not played
+            // and toggle the instance's paused property if it has been played
+            if (!backingSound) backingSound = bgm.play();
+            else backingSound.paused = !e.target.toggled;
+          });
       } // end ready
     </script>
     <meta name="viewport" content="width=device-width, user-scalable=no" />
