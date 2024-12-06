@@ -15,6 +15,8 @@
         "almos/almos-right.png",
         "almos/almos-mouth.png",
         "almos/almos-nose.png",
+        "almos/earring1.png",
+        "almos/hair1.png",
       ];
       const face2 = [
         "joseph/joseph.jpg",
@@ -22,6 +24,8 @@
         "joseph/joseph-right.png",
         "joseph/joseph-mouth.png",
         "joseph/joseph-nose.png",
+        "joseph/sunglass.png",
+        "joseph/hat1.png",
       ];
       const face3 = [
         "micheal/micheal.jpg",
@@ -29,6 +33,10 @@
         "micheal/micheal-right.png",
         "micheal/micheal-mouth.png",
         "micheal/micheal-nose.png",
+        "micheal/necklace1.png",
+        "micheal/hat2.png",
+        "micheal/earring2L.png",
+        "micheal/earring2R.png",
       ];
       const face4 = [
         "mohammad/mohammad.jpg",
@@ -36,6 +44,8 @@
         "mohammad/mohammad-right.png",
         "mohammad/mohammad-mouth.png",
         "mohammad/mohammad-nose.png",
+        "mohammad/earring3.png",
+        "mohammad/tie.png",
       ];
       const face5 = [
         "prince/prince.jpg",
@@ -43,6 +53,8 @@
         "prince/prince-right.png",
         "prince/prince-mouth.png",
         "prince/prince-nose.png",
+        "prince/earring4.png",
+        "prince/ring.png",
       ];
       const face6 = [
         "rene/rene.jpg",
@@ -50,6 +62,10 @@
         "rene/rene-right.png",
         "rene/rene-mouth.png",
         "rene/rene-nose.png",
+        "rene/necklace2.png",
+        "rene/crown.png",
+        "rene/sticker1.png",
+        "rene/sticker2.png",
       ];
       const assets = [
         ...face1,
@@ -61,7 +77,6 @@
         "paper.jpg",
         "leftCover.png",
         "rightCover.png",
-        "bb.jpeg",
       ];
 
       new Frame(FIT, 1024, 768, light, dark, ready, assets, path);
@@ -124,114 +139,112 @@
           .scaleTo(cover1, 100, 100, FULL)
           .center(cover1);
 
-// instruction pages
-          const inst1 = new Page();
+        // instruction pages
+        const inst1 = new Page();
         let instleft = new Pic("bb.jpeg")
           .scaleTo(inst1, 100, 100, FULL)
           .center(inst1);
 
-          const inst2 = new Page();
-        let instright = new Pic("bb.jpeg").rot(180)
+        const inst2 = new Page();
+        let instright = new Pic("bb.jpeg")
+          .rot(180)
           .scaleTo(inst2, 100, 100, FULL)
           .center(inst2);
 
-          
-          const title = "INSTRUCTIONS";
-	    new Label(title, 30, "Schoolbell", black)
-      .addTo(inst1).pos(40, 40);
+        const title = "INSTRUCTIONS";
+        new Label(title, 30, "Schoolbell", black).addTo(inst1).pos(40, 40);
 
+        const stuff = "👀 Step 1: Open the Book";
+        new Label(stuff, 30, "Schoolbell", black).addTo(inst1).pos(40, 120);
 
-      const stuff = "👀 Step 1: Open the Book";
-new Label(stuff, 30, "Schoolbell", black)
-  .addTo(inst1).pos(40, 120);
+        const xx = "Flip through these pages";
+        new Label(xx, 18, "Schoolbell", black).addTo(inst1).pos(40, 200);
 
-const xx = "Flip through these pages";
-new Label(xx, 18, "Schoolbell", black)
-  .addTo(inst1).pos(40, 200);
+        const yy = "to see funny noses, eyes, and mouths.";
+        new Label(yy, 18, "Schoolbell", black).addTo(inst1).pos(40, 240);
 
-const yy = "to see funny noses, eyes, and mouths.";
-new Label(yy, 18, "Schoolbell", black)
-  .addTo(inst1).pos(40, 240);
+        const step2 = "🖱️ Step 2: Pick Your Favorites";
+        new Label(step2, 30, "Schoolbell", black).addTo(inst1).pos(40, 280);
 
-const step2 = "🖱️ Step 2: Pick Your Favorites";
-new Label(step2, 30, "Schoolbell", black)
-  .addTo(inst1).pos(40, 280);
+        const pickFavorites1 = "Click on TWO eyes, ONE nose,";
+        new Label(pickFavorites1, 18, "Schoolbell", black)
+          .addTo(inst1)
+          .pos(40, 360);
 
-const pickFavorites1 = "Click on TWO eyes, ONE nose,";
-new Label(pickFavorites1, 18, "Schoolbell", black)
-  .addTo(inst1).pos(40, 360);
+        const pickFavorites2 = "and ONE mouth that you like best!";
+        new Label(pickFavorites2, 18, "Schoolbell", black)
+          .addTo(inst1)
+          .pos(40, 400);
 
-const pickFavorites2 = "and ONE mouth that you like best!";
-new Label(pickFavorites2, 18, "Schoolbell", black)
-  .addTo(inst1).pos(40, 400);
+        const pickFavorites3 = "They’ll jump out of the book";
+        new Label(pickFavorites3, 18, "Schoolbell", black)
+          .addTo(inst1)
+          .pos(40, 440);
 
-const pickFavorites3 = "They’ll jump out of the book";
-new Label(pickFavorites3, 18, "Schoolbell", black)
-  .addTo(inst1).pos(40, 440);
+        const pickFavorites4 = "and wait for you to create a face.";
+        new Label(pickFavorites4, 18, "Schoolbell", black)
+          .addTo(inst1)
+          .pos(40, 480);
 
-const pickFavorites4 = "and wait for you to create a face.";
-new Label(pickFavorites4, 18, "Schoolbell", black)
-  .addTo(inst1).pos(40, 480);
+        const step3 = "📖 Step 3: Close the Book";
+        new Label(step3, 30, "Schoolbell", black).addTo(inst1).pos(40, 520);
 
-const step3 = "📖 Step 3: Close the Book";
-new Label(step3, 30, "Schoolbell", black)
-  .addTo(inst1).pos(40, 520);
+        const closeBook1 = "When you’re done choosing,";
+        new Label(closeBook1, 18, "Schoolbell", black)
+          .addTo(inst1)
+          .pos(40, 600);
 
-const closeBook1 = "When you’re done choosing,";
-new Label(closeBook1, 18, "Schoolbell", black)
-  .addTo(inst1).pos(40, 600);
+        const closeBook2 = "close the book so you can get to work.";
+        new Label(closeBook2, 18, "Schoolbell", black)
+          .addTo(inst1)
+          .pos(40, 640);
 
-const closeBook2 = "close the book so you can get to work.";
-new Label(closeBook2, 18, "Schoolbell", black)
-  .addTo(inst1).pos(40, 640);
+        const closeBook3 = "It’s face-building time!";
+        new Label(closeBook3, 18, "Schoolbell", black)
+          .addTo(inst1)
+          .pos(40, 680);
 
-const closeBook3 = "It’s face-building time!";
-new Label(closeBook3, 18, "Schoolbell", black)
-  .addTo(inst1).pos(40, 680);
+        const step4 = "🖐️ Step 4: Drag & Drop";
+        new Label(step4, 30, "Schoolbell", black).addTo(inst2).pos(40, 120);
 
-const step4 = "🖐️ Step 4: Drag & Drop";
-new Label(step4, 30, "Schoolbell", black)
-  .addTo(inst2).pos(40, 120);
+        const dragDrop1 = "Drag your chosen pieces";
+        new Label(dragDrop1, 18, "Schoolbell", black).addTo(inst2).pos(40, 200);
 
-const dragDrop1 = "Drag your chosen pieces";
-new Label(dragDrop1, 18, "Schoolbell", black)
-  .addTo(inst2).pos(40, 200);
+        const dragDrop2 = "onto the blank face.";
+        new Label(dragDrop2, 18, "Schoolbell", black).addTo(inst2).pos(40, 240);
 
-const dragDrop2 = "onto the blank face.";
-new Label(dragDrop2, 18, "Schoolbell", black)
-  .addTo(inst2).pos(40, 240);
+        const dragDrop3 = "Make a wacky, funny, or scary face!";
+        new Label(dragDrop3, 18, "Schoolbell", black).addTo(inst2).pos(40, 280);
 
-const dragDrop3 = "Make a wacky, funny, or scary face!";
-new Label(dragDrop3, 18, "Schoolbell", black)
-  .addTo(inst2).pos(40, 280);
+        const step5 = "✨ Step 5: Hit the Finish Button";
+        new Label(step5, 30, "Schoolbell", black).addTo(inst2).pos(40, 360);
 
-const step5 = "✨ Step 5: Hit the Finish Button";
-new Label(step5, 30, "Schoolbell", black)
-  .addTo(inst2).pos(40, 360);
+        const finishButton1 = "Once your face is ready,";
+        new Label(finishButton1, 18, "Schoolbell", black)
+          .addTo(inst2)
+          .pos(40, 440);
 
-const finishButton1 = "Once your face is ready,";
-new Label(finishButton1, 18, "Schoolbell", black)
-  .addTo(inst2).pos(40, 440);
+        const finishButton2 = "hit the 'Finish' button.";
+        new Label(finishButton2, 18, "Schoolbell", black)
+          .addTo(inst2)
+          .pos(40, 480);
 
-const finishButton2 = "hit the 'Finish' button.";
-new Label(finishButton2, 18, "Schoolbell", black)
-  .addTo(inst2).pos(40, 480);
+        const finishButton3 = "Watch your face come to life";
+        new Label(finishButton3, 18, "Schoolbell", black)
+          .addTo(inst2)
+          .pos(40, 520);
 
-const finishButton3 = "Watch your face come to life";
-new Label(finishButton3, 18, "Schoolbell", black)
-  .addTo(inst2).pos(40, 520);
+        const finishButton4 = "with a fun little animation!";
+        new Label(finishButton4, 18, "Schoolbell", black)
+          .addTo(inst2)
+          .pos(40, 560);
 
-const finishButton4 = "with a fun little animation!";
-new Label(finishButton4, 18, "Schoolbell", black)
-  .addTo(inst2).pos(40, 560);
-
-   
-          
-
+        //initialize arrays for features and accessories
         const leftEye = [];
         const rightEye = [];
         const mouth = [];
         const nose = [];
+        const accessory = [];
 
         //make the first face
         const page1 = new Page();
@@ -261,6 +274,16 @@ new Label(finishButton4, 18, "Schoolbell", black)
           .loc(295, 408, page1);
         nose.push(nosePic1);
 
+        let earring1 = new Pic("almos/earring1.png")
+          .scaleTo(page1, 10, 10)
+          .loc(75, 480, page1);
+        accessory.push(earring1);
+
+        let hair = new Pic("almos/hair1.png")
+          .scaleTo(page1, 40, 40)
+          .loc(70, 80, page1);
+        accessory.push(hair);
+
         //make the second page
         const page2 = new Page();
         let pic2 = new Pic("joseph/joseph.jpg").addTo(page2);
@@ -285,6 +308,16 @@ new Label(finishButton4, 18, "Schoolbell", black)
           .scaleTo(page2, 14, 14)
           .loc(213, 272, page2);
         nose.push(nosePic2);
+
+        let sunglass = new Pic("joseph/sunglass.png")
+          .scaleTo(page2, 20, 20)
+          .loc(240, 540, page2);
+        accessory.push(sunglass);
+
+        let hat = new Pic("joseph/hat1.png")
+          .scaleTo(page2, 50, 50)
+          .loc(111, 35, page2);
+        accessory.push(hat);
 
         //make the third page
         const page3 = new Page();
@@ -311,6 +344,26 @@ new Label(finishButton4, 18, "Schoolbell", black)
           .loc(234, 237, page3);
         nose.push(nosePic3);
 
+        let hat2 = new Pic("micheal/hat2.png")
+          .scaleTo(page3, 50, 50)
+          .loc(130, 50, page3);
+        accessory.push(hat2);
+
+        let earring2L = new Pic("micheal/earring2L.png")
+          .scaleTo(page3, 10, 10)
+          .loc(160, 270, page3);
+        accessory.push(earring2L);
+
+        let earring2R = new Pic("micheal/earring2R.png")
+          .scaleTo(page3, 10, 10)
+          .loc(308, 270, page3);
+        accessory.push(earring2R);
+
+        let necklace1 = new Pic("micheal/necklace1.png")
+          .scaleTo(page3, 35, 35)
+          .loc(162, 355, page3);
+        accessory.push(necklace1);
+
         //make the fourth page
         const page4 = new Page();
         let pic4 = new Pic("mohammad/mohammad.jpg").addTo(page4);
@@ -335,6 +388,16 @@ new Label(finishButton4, 18, "Schoolbell", black)
           .scaleTo(page4, 8, 8)
           .loc(205, 287, page4);
         nose.push(nosePic4);
+
+        let earring3 = new Pic("mohammad/earring3.png")
+          .scaleTo(page4, 8, 8)
+          .loc(293, 325, page4);
+        accessory.push(earring3);
+
+        let tie = new Pic("mohammad/tie.png")
+          .scaleTo(page4, 45, 45)
+          .loc(210, 390, page4);
+        accessory.push(tie);
 
         //make the fifth page
         const page5 = new Page();
@@ -361,6 +424,16 @@ new Label(finishButton4, 18, "Schoolbell", black)
           .loc(310, 242, page5);
         nose.push(nosePic5);
 
+        let earring4 = new Pic("prince/earring4.png")
+          .scaleTo(page5, 10, 10)
+          .loc(130, 340, page5);
+        accessory.push(earring4);
+
+        let ring = new Pic("prince/ring.png")
+          .scaleTo(page5, 8, 8)
+          .loc(285, 500, page5);
+        accessory.push(ring);
+
         //make the sixth page
         const page6 = new Page();
         let pic6 = new Pic("rene/rene.jpg").addTo(page6);
@@ -385,25 +458,50 @@ new Label(finishButton4, 18, "Schoolbell", black)
           .scaleTo(page6, 18, 18)
           .loc(210, 284, page6);
         nose.push(nosePic6);
+        let crown = new Pic("rene/crown.png")
+          .scaleTo(page6, 80, 80)
+          .loc(50, 30, page6);
+        accessory.push(crown);
+
+        let sticker1 = new Pic("rene/sticker1.png")
+          .scaleTo(page6, 8, 8)
+          .loc(150, 300, page6);
+        accessory.push(sticker1);
+
+        let sticker2 = new Pic("rene/sticker2.png")
+          .scaleTo(page6, 8, 8)
+          .loc(320, 320, page6);
+        accessory.push(sticker2);
+
+        let necklace2 = new Pic("rene/necklace2.png")
+          .scaleTo(page6, 40, 35)
+          .loc(140, 400, page6);
+        accessory.push(necklace2);
+
+        //make the accessories clickable
+        accessory.forEach((accessory) => {
+          accessory.reg(CENTER, CENTER, true);
+          accessory.on("mouseover", (e) => {
+            e.target.sca(0.5);
+            S.update();
+          });
+          accessory.on("mouseout", (e) => {
+            e.target.sca(0.4);
+            S.update();
+          });
+        });
 
         //make the features wiggle
         const allFeatures = [leftEye, rightEye, nose, mouth];
         allFeatures.forEach((featureArray) => {
           featureArray.forEach((feature) => {
             feature.reg(CENTER, CENTER, true);
-            // feature.animate({
-            //   props:{rotation:10},
-            //   time:1,
-            //   loop:true
-            // });
             feature.on("mouseover", (e) => {
-              //e.target.pauseAnimate();
-              e.target.scale = 0.6;
+              e.target.sca(0.6);
               S.update();
             });
             feature.on("mouseout", (e) => {
-              //e.target.pauseAnimate(false);
-              e.target.scale = 0.5;
+              e.target.sca(0.5);
               S.update();
             });
           });
@@ -477,6 +575,145 @@ new Label(finishButton4, 18, "Schoolbell", black)
             });
           });
         }
+
+        //make the accessories container
+        const accessoryContainer = new Container(W - 250, H - 50)
+          .reg(CENTER)
+          .center();
+        //.outline();
+        const accessoryContainer1 = new Container(150, 150)
+          .reg(CENTER)
+          .pos(0, 50, CENTER, TOP, accessoryContainer)
+          //.outline()
+          .transform({ all: true });
+        const accessoryContainer2 = new Container(150, 150)
+          .reg(CENTER)
+          .pos(0, 50, LEFT, TOP, accessoryContainer)
+          //.outline()
+          .transform({ all: true });
+        const accessoryContainer3 = new Container(150, 150)
+          .reg(CENTER)
+          .pos(0, 50, RIGHT, TOP, accessoryContainer)
+          //.outline()
+          .transform({ all: true });
+
+        const accessoryCounts = {
+          accessory1: 0,
+          accessory2: 0,
+          accessory3: 0,
+        };
+
+        // Add this near your other global variables
+        const activeAccessories = {
+          accessory1: null,
+          accessory2: null,
+          accessory3: null,
+        };
+        // Add these near your other global variables
+        const MAX_ACCESSORIES = 3;
+        // Add this function after makeFeatureClickable
+        function makeAccessoryClickable(accessoryArray) {
+          accessoryArray.forEach((accessory) => {
+            accessory.on("mousedown", () => {
+              // If this accessory is already selected, ignore the click
+              if (accessory.isSelected) return;
+
+              // Create clone of the new accessory
+              let clone = accessory.clone();
+              clone.originalAccessory = accessory;
+              clone.isSelected = true;
+              accessory.isSelected = true;
+
+              // Hide original accessory
+              accessory.vis(false);
+              accessory.enabled = false;
+
+              // If all containers are full, shift everything left and add to right
+              if (
+                activeAccessories.accessory1 &&
+                activeAccessories.accessory2 &&
+                activeAccessories.accessory3
+              ) {
+                // Return first accessory to original state
+                activeAccessories.accessory1.originalAccessory.vis(true);
+                activeAccessories.accessory1.originalAccessory.enabled = true;
+                activeAccessories.accessory1.originalAccessory.isSelected = false;
+                activeAccessories.accessory1.removeFrom(accessoryContainer1);
+
+                // Shift accessories left
+                activeAccessories.accessory1 = activeAccessories.accessory2;
+                activeAccessories.accessory2 = activeAccessories.accessory3;
+
+                // Move physical accessories
+                activeAccessories.accessory1.center(accessoryContainer1);
+                activeAccessories.accessory2.center(accessoryContainer2);
+
+                // Add new accessory to right container
+                clone.center(accessoryContainer3);
+                clone.scale = 0.4;
+                activeAccessories.accessory3 = clone;
+              }
+              // Otherwise find first empty container
+              else {
+                if (!activeAccessories.accessory1) {
+                  clone.center(accessoryContainer1);
+                  clone.scale = 0.4;
+                  activeAccessories.accessory1 = clone;
+                } else if (!activeAccessories.accessory2) {
+                  clone.center(accessoryContainer2);
+                  clone.scale = 0.4;
+                  activeAccessories.accessory2 = clone;
+                } else {
+                  clone.center(accessoryContainer3);
+                  clone.scale = 0.4;
+                  activeAccessories.accessory3 = clone;
+                }
+              }
+
+              // Add double click to return accessory
+              clone.on("dblclick", () => {
+                // Find which container this accessory is in
+                let containerNum = 0;
+                if (activeAccessories.accessory1 === clone) containerNum = 1;
+                else if (activeAccessories.accessory2 === clone)
+                  containerNum = 2;
+                else if (activeAccessories.accessory3 === clone)
+                  containerNum = 3;
+
+                // Remove accessory and reset original
+                clone.removeFrom(eval(`accessoryContainer${containerNum}`));
+                accessory.vis(true);
+                accessory.enabled = true;
+                accessory.isSelected = false;
+
+                // Shift remaining accessories left if needed
+                if (containerNum === 1) {
+                  activeAccessories.accessory1 = activeAccessories.accessory2;
+                  activeAccessories.accessory2 = activeAccessories.accessory3;
+                  activeAccessories.accessory3 = null;
+                  if (activeAccessories.accessory1)
+                    activeAccessories.accessory1.center(accessoryContainer1);
+                  if (activeAccessories.accessory2)
+                    activeAccessories.accessory2.center(accessoryContainer2);
+                } else if (containerNum === 2) {
+                  activeAccessories.accessory2 = activeAccessories.accessory3;
+                  activeAccessories.accessory3 = null;
+                  if (activeAccessories.accessory2)
+                    activeAccessories.accessory2.center(accessoryContainer2);
+                } else {
+                  activeAccessories.accessory3 = null;
+                }
+
+                S.update();
+              });
+
+              S.update();
+            });
+          });
+        }
+
+        // Apply click functionality to accessories
+        makeAccessoryClickable(accessory);
 
         // Apply click functionality to each feature array
         makeFeatureClickable(leftEye, "leftEye");
@@ -625,7 +862,19 @@ new Label(finishButton4, 18, "Schoolbell", black)
           .vis(false);
         saveButton.on("click", () => {
           zog("save button clicked");
-          new Loader().save(S, "Face Collage");
+          saveButton.vis(false);
+          finishButton.vis(false);
+          bookOpen.vis(false);
+          //bookClose.vis(false);
+          holder.vis(false);
+          timeout(1, () => {
+            new Loader().save(S, "Face Collage");
+            saveButton.vis(true);
+            finishButton.vis(true);
+            bookOpen.vis(true);
+            //bookClose.vis(true);
+            holder.vis(true);
+          });
         });
       } // end ready
     </script>
