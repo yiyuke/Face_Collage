@@ -14,6 +14,7 @@
         "sounds/click.mp3",
         "sounds/book-open.wav",
         "sounds/book-close.wav",
+        "sounds/cheer2.mp3",
       ];
       const face1 = [
         "almos/almos.jpg",
@@ -91,6 +92,11 @@
         "Fun.png",
         "StartButton.png",
         "arrow.png",
+        "bookButton.png",
+        "finishButton.png",
+        "saveButton.png",
+        "hintButton.png",
+        "hintPane.png",
       ];
 
       new Frame(FIT, 1024, 768, light, dark, ready, assets, path);
@@ -584,7 +590,7 @@
               feature.enabled = false;
 
               // Add double click to return feature
-              clone.on("dblclick", () => {
+              clone.hold((e) => {
                 //clone.transformControl.remove();
                 clone.removeFrom(featureContainers[featureType]);
                 feature.vis(true);
@@ -695,7 +701,7 @@
               }
 
               // Add double click to return accessory
-              clone.on("dblclick", () => {
+              clone.hold((e) => {
                 // Find which container this accessory is in
                 let containerNum = 0;
                 if (activeAccessories.accessory1 === clone) containerNum = 1;
@@ -768,21 +774,25 @@
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //make the buttons to open and close the book
+        const openBookButton = new Pic("bookButton.png").reg(CENTER).sca(0.4); //.addTo();
         STYLE = { font: "Schoolbell" };
         const bookOpen = new Button({
           width: 200,
           height: 50,
-          label: "Open Book",
-          color: white,
+          label: "OPEN BOOK",
+          color: black,
+          backing: openBookButton,
         })
           .pos(0, 30, CENTER, TOP)
           .addTo()
           .vis(false);
+        const closeBookButton = new Pic("BookButton.png").reg(CENTER).sca(0.4); //.addTo();
         const bookClose = new Button({
           width: 200,
           height: 50,
-          label: "Close Book",
-          color: white,
+          label: "CLOSE BOOK",
+          color: black,
+          backing: closeBookButton,
         })
           .pos(0, 30, CENTER, TOP)
           .addTo();
@@ -804,6 +814,7 @@
             bookOpen.vis(true);
             finishButton.vis(true);
             saveButton.vis(true);
+            hintButton.vis(true);
           });
         });
 
@@ -820,6 +831,7 @@
             });
             finishButton.vis(false);
             saveButton.vis(false);
+            hintButton.vis(false);
           });
           timeout(3, () => {
             bookOpen.vis(false);
@@ -829,12 +841,47 @@
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         //Finish the collage and show the face
-        const finishButton = new Button({
-          width: 150,
+        const hintButtonPic = new Pic("hintButton.png").reg(CENTER).sca(0.4);
+        const hintButton = new Button({
+          width: 50,
           height: 50,
-          backgroundColor: blue,
+          label: "",
+          color: black,
+          backing: hintButtonPic,
+        })
+          .pos(170, 40, LEFT, TOP)
+          .addTo()
+          .vis(false);
+        hintButton.on("click", () => {
+          hintPane.show();
+        });
+        const hintPanePic = new Pic("hintPane.png").reg(CENTER).sca(0.8);
+        const hintPane = new Pane({
+          width: 450,
+          height: 260,
           color: white,
-          label: "FINISH",
+          corner: 10,
+          content: "",
+          close: true,
+          backing: hintPanePic,
+        })
+          .center()
+          .hide();
+
+        hintButton.on("click", () => {
+          zog("hint button clicked");
+        });
+
+        const finishButtonPic = new Pic("finishButton.png")
+          .reg(CENTER)
+          .sca(0.65);
+        const finishButton = new Button({
+          width: 200,
+          height: 135,
+          //backgroundColor: blue,
+          color: white,
+          label: "FINISH!",
+          backing: finishButtonPic,
         })
           .sca(0.8)
           .pos(0, 40, CENTER, BOTTOM)
@@ -843,8 +890,10 @@
 
         zog("finishButton created:", finishButton);
 
+        const cheerSound = new Aud("sounds/cheer2.mp3");
         finishButton.on("click", () => {
           zog("finish button clicked");
+          cheerSound.play();
           let emitter = new Emitter({
             obj: makeIcon("heart", red),
             //obj:new Poly(170, 5, .6,clear,[red,green,purple,blue],3),
@@ -877,15 +926,17 @@
         });
 
         //Save the collage face
+        const saveButtonPic = new Pic("saveButton.png").reg(CENTER).sca(0.6);
         const saveButton = new Button({
-          width: 150,
-          height: 50,
-          backgroundColor: green,
+          width: 200,
+          height: 100,
+          //hitPadding: 10,
+          //backgroundColor: green,
           color: white,
-          label: "SAVE",
-          corner: 10,
+          label: "SAVE!",
+          backing: saveButtonPic,
         })
-          .sca(0.8)
+          //.sca(0.8)
           .pos(80, 40, RIGHT, BOTTOM)
           .addTo()
           .vis(false);
@@ -896,6 +947,7 @@
           bookOpen.vis(false);
           //bookClose.vis(false);
           holder.vis(false);
+          playSoundButton.vis(false);
           timeout(1, () => {
             new Loader().save(S, "Face Collage");
             saveButton.vis(true);
@@ -903,6 +955,7 @@
             bookOpen.vis(true);
             //bookClose.vis(true);
             holder.vis(true);
+            playSoundButton.vis(true);
           });
         });
 
