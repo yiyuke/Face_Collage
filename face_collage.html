@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <title>Fun Face Factory</title>
-
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
+    <!-- This is a simple collage game where you can create a face by dragging and dropping the features you like. -->
+    <!-- We hope it's a way for kids to experience collage art and express themselves and have fun! -->
     <!-- zimjs.com - JavaScript Canvas Framework -->
     <script type="module">
       import zim from "https://zimjs.org/cdn/017/zim";
@@ -171,7 +173,6 @@
           .scaleTo(inst2, 100, 100, FULL)
           .center(inst2);
 
-        //STYLE = { font: "Schoolbell" };
         const title = "INSTRUCTIONS";
         new Label(title, 30, "Schoolbell", black).addTo(inst1).pos(40, 50);
 
@@ -554,7 +555,6 @@
           mouth: 0,
         };
 
-        // Add this near your other global variables
         const activeFeatures = {
           leftEye: null,
           rightEye: null,
@@ -582,14 +582,14 @@
               clone.center(featureContainers[featureType]);
               clone.scale = 1;
               featureContainers[featureType].transform({ all: true });
-              zog(featureType);
-              zog(featureContainers[featureType].numChildren);
+              //zog(featureType);
+              //zog(featureContainers[featureType].numChildren);
 
               // Hide original feature
               feature.vis(false);
               feature.enabled = false;
 
-              // Add double click to return feature
+              // Add hold to return feature
               clone.hold((e) => {
                 //clone.transformControl.remove();
                 clone.removeFrom(featureContainers[featureType]);
@@ -633,15 +633,13 @@
           accessory3: 0,
         };
 
-        // Add this near your other global variables
         const activeAccessories = {
           accessory1: null,
           accessory2: null,
           accessory3: null,
         };
-        // Add these near your other global variables
         const MAX_ACCESSORIES = 3;
-        // Add this function after makeFeatureClickable
+
         function makeAccessoryClickable(accessoryArray) {
           accessoryArray.forEach((accessory) => {
             accessory.on("mousedown", () => {
@@ -700,7 +698,7 @@
                 }
               }
 
-              // Add double click to return accessory
+              // Add hold to return accessory
               clone.hold((e) => {
                 // Find which container this accessory is in
                 let containerNum = 0;
@@ -763,8 +761,7 @@
           page5,
           page6,
         ];
-        // 0 (default) will show only page 0 at right - like a cover
-        // 1 will show page 0 and page 1 to start - like an open book
+
         const holder = new Container(W, H).addTo();
         const mask = new Rectangle(W, H, clear).addTo(holder);
         const book = new Book(W + 2, H + 2, pages, 1)
@@ -806,7 +803,6 @@
                 x: -W + 100,
               },
               time: 2,
-              //rewind:true
             });
           });
           timeout(3, () => {
@@ -827,7 +823,6 @@
                 x: 0,
               },
               time: 2,
-              //rewind:true
             });
             finishButton.vis(false);
             saveButton.vis(false);
@@ -878,7 +873,6 @@
         const finishButton = new Button({
           width: 200,
           height: 135,
-          //backgroundColor: blue,
           color: white,
           label: "FINISH!",
           backing: finishButtonPic,
@@ -896,7 +890,6 @@
           cheerSound.play();
           let emitter = new Emitter({
             obj: makeIcon("heart", red),
-            //obj:new Poly(170, 5, .6,clear,[red,green,purple,blue],3),
             force: { min: 2, max: 3 },
             gravity: 2,
             interval: 0.2,
@@ -930,13 +923,10 @@
         const saveButton = new Button({
           width: 200,
           height: 100,
-          //hitPadding: 10,
-          //backgroundColor: green,
           color: white,
           label: "SAVE!",
           backing: saveButtonPic,
         })
-          //.sca(0.8)
           .pos(80, 40, RIGHT, BOTTOM)
           .addTo()
           .vis(false);
@@ -945,17 +935,17 @@
           saveButton.vis(false);
           finishButton.vis(false);
           bookOpen.vis(false);
-          //bookClose.vis(false);
           holder.vis(false);
           playSoundButton.vis(false);
+          hintButton.vis(false);
           timeout(1, () => {
             new Loader().save(S, "Face Collage");
             saveButton.vis(true);
             finishButton.vis(true);
             bookOpen.vis(true);
-            //bookClose.vis(true);
             holder.vis(true);
             playSoundButton.vis(true);
+            hintButton.vis(true);
           });
         });
 
